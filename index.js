@@ -6,6 +6,9 @@ const raf = require('raf')
 
 module.exports = virtualRaf
 
+// create a RAF loop
+// virtualRaf(Object:tree, HTMLElement:rootNode, Object?:opts, Function:cb)
+// => String:rafIdentifier
 function virtualRaf (tree, rootNode, opts, cb) {
   if (!cb) {
     cb = opts
@@ -14,11 +17,12 @@ function virtualRaf (tree, rootNode, opts, cb) {
   const diff = opts.diff || virtualDiff
   const patch = opts.patch || virtualPatch
 
-  assert.equals(typeof tree, 'object')
-  assert(isDom(rootNode))
-  assert.equals(typeof cb, 'function')
+  assert.equal(typeof tree, 'object')
+  assert(isDom(rootNode), 'not a dom node')
+  assert.equal(typeof opts, 'object')
+  assert.equal(typeof cb, 'function')
 
-  raf(function tick () {
+  return raf(function tick () {
     const nwTree = cb()
     const patches = diff(tree, nwTree)
     rootNode = patch(rootNode, patches)
@@ -26,4 +30,3 @@ function virtualRaf (tree, rootNode, opts, cb) {
     raf(tick)
   })
 }
-

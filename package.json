@@ -21,6 +21,7 @@
     "virtual-dom": "^2.0.1"
   },
   "devDependencies": {
+    "dom-stub": "^1.0.1",
     "istanbul": "^0.3.13",
     "standard": "^3.3.1",
     "tape": "^3.5.0"
