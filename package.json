@@ -1,0 +1,33 @@
+{
+  "name": "virtual-raf",
+  "version": "1.0.0",
+  "description": "Create a RAF loop for virtual-dom",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && NODE_ENV=test node test",
+    "test-cov": "standard && NODE_ENV=test istanbul cover test.js"
+  },
+  "repository": "yoshuawuyts/virtual-raf",
+  "keywords": [
+    "raf",
+    "request animation frame",
+    "virtual-dom",
+    "render"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "is-dom": "^1.0.5",
+    "raf": "^2.0.4",
+    "virtual-dom": "^2.0.1"
+  },
+  "devDependencies": {
+    "istanbul": "^0.3.13",
+    "standard": "^3.3.1",
+    "tape": "^3.5.0"
+  },
+  "files": [
+    "LICENSE",
+    "index.js",
+    "README.md"
+  ]
+}
