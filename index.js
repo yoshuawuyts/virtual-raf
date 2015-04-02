@@ -1,5 +1,6 @@
 const virtualPatch = require('virtual-dom/patch')
 const virtualDiff = require('virtual-dom/diff')
+const assert = require('assert')
 const isDom = require('is-dom')
 const raf = require('raf')
 
