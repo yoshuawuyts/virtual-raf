@@ -20,16 +20,9 @@ const virtualRaf = require('virtual-raf')
 const h = require('virtual-dom/h')
 
 // 1: Create a function that declares what the DOM should look like
+const divStyle = {border: '1px solid red', height: (100 + count) + 'px'}
 function render(count)  {
-    return h('div', {
-        style: {
-            textAlign: 'center',
-            lineHeight: (100 + count) + 'px',
-            border: '1px solid red',
-            width: (100 + count) + 'px',
-            height: (100 + count) + 'px'
-        }
-    }, [String(count)])
+  return h('div', {style: divStyle}, [String(count)])
 }
 
 // 2: Initialise the document
