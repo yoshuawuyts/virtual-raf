@@ -38,6 +38,7 @@ virtualRaf(tree, rootNode, () => render(count))
 
 ## See Also
 - [main-loop](https://github.com/Raynos/main-loop) - A rendering loop for diffable UIs
+- [render-loop](https://github.com/azer/render-loop) - Async DOM render loop with virtual dom diffing and Hyperglue
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
