@@ -36,6 +36,9 @@ document.body.appendChild(rootNode)    // ... and it should be in the document
 virtualRaf(tree, rootNode, () => render(count))
 ```
 
+## See Also
+- [main-loop](https://github.com/Raynos/main-loop) - A rendering loop for diffable UIs
+
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
 
