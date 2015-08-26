@@ -34,8 +34,7 @@ tree.update({ count: 2 })
 Create a `virtual-dom` tree based on a `state` and render function.
 
 ### tree()
-Mount the `virtual-dom` tree on a DOM node. Alias: `tree.render()`,
-`tree.target`.
+Mount the `virtual-dom` tree on a DOM node. Alias: `tree.render()`.
 
 ### tree.update(state, [render])
 Update the tree with an optional new state and render function.
