@@ -1,6 +1,6 @@
 {
   "name": "virtual-raf",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Create a RAF loop for virtual-dom",
   "main": "index.js",
   "scripts": {
