@@ -5,7 +5,7 @@
 [![Downloads][downloads-image]][downloads-url]
 [![js-standard-style][standard-image]][standard-url]
 
-Create a [`RAF`](https://github.com/chrisdickinson/raf) loop for 
+Create a [`RAF`](https://github.com/chrisdickinson/raf) loop for
 [`virtual-dom`](https://github.com/Matt-Esch/virtual-dom).
 
 ## Installation
@@ -15,26 +15,36 @@ $ npm install virtual-raf
 
 ## Usage
 ```js
-const createElement = require('virtual-dom/create-element')
-const virtualRaf = require('virtual-raf')
+const vraf = require('virtual-raf')
+const vdom = require('virtual-dom')
 const h = require('virtual-dom/h')
 
-// 1: Create a function that declares what the DOM should look like
-const divStyle = {border: '1px solid red', height: (100 + count) + 'px'}
-function render(count)  {
-  return h('div', {style: divStyle}, [String(count)])
+function render (state) {
+  return h('div', [state.count])
 }
 
-// 2: Initialise the document
-var count = 0      // We need some app data. Here we just store a count.
+const tree = vraf({ count: 1 }, render, vdom)
+document.body.appendChild(tree())
 
-var tree = render(count)               // We need an initial tree
-var rootNode = createElement(tree)     // Create an initial root DOM node ...
-document.body.appendChild(rootNode)    // ... and it should be in the document
-
-// 3: Wire up the update logic
-virtualRaf(tree, rootNode, () => render(count))
+tree.update({ count: 2 })
 ```
+
+## API
+### tree = vraf(state, render, vdom)
+Create a `virtual-dom` tree based on a `state` and render function.
+
+### tree()
+Mount the `virtual-dom` tree on a DOM node. Alias: `tree.render()`,
+`tree.target`.
+
+### tree.update(state, [render])
+Update the tree with an optional new state and render function.
+
+## Why?
+Because [`main-loop`](https://github.com/Raynos/main-loop) assumes a single
+render function is used, while `virtual-dom` diffs trees, making it irrelevant
+which rendering function is used. This makes `virtual-dom` play well with
+decentralized routers.
 
 ## See Also
 - [main-loop](https://github.com/Raynos/main-loop) - A rendering loop for diffable UIs
