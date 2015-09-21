@@ -6,7 +6,7 @@ module.exports = virtualRaf
 // create a RAF loop
 // (obj, fn, obj) -> fn -> obj
 function virtualRaf (state, view, vdom) {
-  assert.equal(typeof state, 'object')
+  state = state || {}
   assert.equal(typeof view, 'function')
   assert.equal(typeof vdom, 'object')
 
