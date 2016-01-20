@@ -7,52 +7,52 @@ module.exports = virtualRaf
 // (obj, fn, obj) -> fn -> obj
 function virtualRaf (state, view, vdom) {
   state = state || {}
+
+  assert.equal(typeof state, 'object')
   assert.equal(typeof view, 'function')
   assert.equal(typeof vdom, 'object')
-
-  const create = vdom.create
-  const patch = vdom.patch
-  const diff = vdom.diff
-
-  var tree = view(state)
-  var target = create(tree)
 
   var inRenderingTransaction = false
   var redrawScheduled = false
   var currentState = null
+  var target = null
+  var tree = null
 
-  render.render = render
-  render.update = update
-  return render
+  return { render: render, update: update }
 
   // return the vdom tree
   // null -> obj
   function render () {
+    tree = view(state)
+    target = vdom.create(tree)
     return target
   }
 
   // update the state and render function
-  // (obj, fn?) -> null
-  function update (state, nwRender) {
-    if (inRenderingTransaction) throw new Error('infinite loop detected')
-    if (nwRender) view = nwRender
+  // obj -> null
+  function update (state) {
+    assert.ifError(inRenderingTransaction, 'infinite loop detected')
 
-    if (!currentState && !redrawScheduled) raf(redraw)
-    currentState = state
+    // request a redraw for next frame
+    if (currentState === null && !redrawScheduled) {
+      redrawScheduled = true
 
-    function redraw () {
-      redrawScheduled = false
+      raf(function redraw () {
+        redrawScheduled = false
+        if (!currentState) return
 
-      if (!currentState) return
+        inRenderingTransaction = true
+        var newTree = view(currentState)
+        const patches = vdom.diff(tree, newTree)
+        inRenderingTransaction = false
 
-      inRenderingTransaction = true
-      var newTree = view(currentState)
-      const patches = diff(tree, newTree)
-      inRenderingTransaction = false
-
-      target = patch(target, patches)
-      tree = newTree
-      currentState = null
+        target = vdom.patch(target, patches)
+        tree = newTree
+        currentState = null
+      })
     }
+
+    // update data for redraw
+    currentState = state
   }
 }

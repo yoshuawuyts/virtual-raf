@@ -24,7 +24,7 @@ function render (state) {
 }
 
 const tree = vraf({ count: 1 }, render, vdom)
-document.body.appendChild(tree())
+document.body.appendChild(tree.render())
 
 tree.update({ count: 2 })
 ```
@@ -33,17 +33,11 @@ tree.update({ count: 2 })
 ### tree = vraf(state, render, vdom)
 Create a `virtual-dom` tree based on a `state` and render function.
 
-### tree()
-Mount the `virtual-dom` tree on a DOM node. Alias: `tree.render()`.
+### tree.render()
+Mount the `virtual-dom` tree on a DOM node.
 
 ### tree.update(state, [render])
 Update the tree with an optional new state and render function.
-
-## Why?
-Because [`main-loop`](https://github.com/Raynos/main-loop) assumes a single
-render function is used, while `virtual-dom` diffs trees, making it irrelevant
-which rendering function is used. This makes `virtual-dom` play well with
-decentralized routers.
 
 ## See Also
 - [main-loop](https://github.com/Raynos/main-loop) - A rendering loop for diffable UIs
